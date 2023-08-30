@@ -1,0 +1,14 @@
+{
+  "name": "nova-ecdsa-browser",
+  "version": "0.1.0",
+  "files": [
+    "nova_ecdsa_browser_bg.wasm",
+    "nova_ecdsa_browser.js",
+    "nova_ecdsa_browser.d.ts"
+  ],
+  "module": "nova_ecdsa_browser.js",
+  "types": "nova_ecdsa_browser.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
