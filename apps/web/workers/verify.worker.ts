@@ -4,9 +4,12 @@ async function verify(pp: string, proof: string, sigs: string) {
     const multiThread = await import("nova-ecdsa-browser");
     await multiThread.default();
     await multiThread.initThreadPool(navigator.hardwareConcurrency);
+    const start = performance.now();
     const data = await multiThread.verify_compressed_proof(pp, proof, sigs);
+    const end = performance.now();
     ctx.postMessage({
-        data: data
+        data: data,
+        time: end - start
     });
 }
 

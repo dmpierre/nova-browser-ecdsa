@@ -4,55 +4,83 @@ const formatForDisplay = (data: string) => {
     return data.slice(1, 50) + "... \"}\"";
 };
 
-interface NovaPublicParamsProps {
-    data: string;
+const formatTime = (time: number) => {
+    return (time / 1000).toFixed(2);
+}
+
+interface NovaProps {
+    data: string | boolean | undefined;
+    time: number;
+    isGenerating: boolean;
+}
+
+interface NovaGenerateParams extends NovaProps {
     generateParams: () => Promise<void>;
 }
 
-export const NovaGenerateParams: React.FC<NovaPublicParamsProps> = ({ data, generateParams }) => {
+interface NovaGenerateProofProps extends NovaProps {
+    generateProof: () => Promise<void>;
+}
+
+interface NovaVerifyProps extends NovaProps {
+    generateVerify: () => Promise<void>;
+}
+
+export const NovaGenerateParams: React.FC<NovaGenerateParams> = ({ data, isGenerating, time, generateParams }) => {
     return (
         <>
-            <p>Generate Public params:</p>
-            <button onClick={generateParams}>Parametrize</button>
+            <p>Generate Public Parameters:</p>
             {
-                data ?
-                    <p>Public params: {formatForDisplay(data)}</p> : <></>
+                isGenerating ?
+                    <p>Generating...</p>
+                    :
+                    data ?
+                        <>
+                            <p>Current public params: {formatForDisplay(`${data}`)}</p>
+                            <p>Generation time: {formatTime(time)}s</p>
+                        </>
+                        :
+                        <button onClick={generateParams}>Parametrize</button>
             }
         </>
     )
 };
 
-interface NovaGenerateProofProps {
-    data: string;
-    generateProof: () => Promise<void>;
-}
-
-export const NovaGenerateProof: React.FC<NovaGenerateProofProps> = ({ data, generateProof }) => {
+export const NovaGenerateProof: React.FC<NovaGenerateProofProps> = ({ data, isGenerating, generateProof, time }) => {
     return (
         <>
             <p>Generate Proof:</p>
-            <button onClick={generateProof}>Prove</button>
             {
-                data ?
-                    <p>Proof: {formatForDisplay(data)}</p> : <></>
+                isGenerating ?
+                    <p>Generating...</p>
+                    :
+                    data ?
+                        <>
+                            <p>Proof: {formatForDisplay(`${data}`)}</p>
+                            <p>Generation time: {formatTime(time)}s</p>
+                        </>
+                        :
+                        <button onClick={generateProof}>Prove</button>
             }
         </>
     )
 }
 
-interface NovaVerifyProps {
-    data: boolean | undefined;
-    generateVerify: () => Promise<void>;
-}
-
-export const NovaVerify: React.FC<NovaVerifyProps> = ({ data, generateVerify }) => {
+export const NovaVerify: React.FC<NovaVerifyProps> = ({ data, isGenerating, generateVerify, time }) => {
     return (
         <>
             <p>Verify Proof:</p>
-            <button onClick={generateVerify}>Verify</button>
             {
-                data != undefined ?
-                    <p>Verified as: {`${data}`}</p> : <></>
+                isGenerating ?
+                    <p>Verifying...</p>
+                    :
+                    data != undefined ?
+                        <>
+                            <p>Verified as: {`${data}`}</p>
+                            <p>Verification time: {formatTime(time)}s</p>
+                        </>
+                        :
+                        <button onClick={generateVerify}>Verify</button>
             }
         </>
 

@@ -4,15 +4,16 @@ import sigsJSON from "../public/batch.json";
 export const useVerify = (pp: string, proof: string) => {
     const worker = useRef<Worker>();
     const [verify, setverify] = useState<{ data: boolean | undefined }>({ data: undefined });
-    const [verifyTime, setverifyTime] = useState(-1);
+    const [time, settime] = useState();
+    const [isGenerating, setisGenerating] = useState(false);
 
     useEffect(() => {
         worker.current = new Worker(new URL("../workers/verify.worker.ts", import.meta.url));
         worker.current.onmessage = (e) => {
             console.log("CompressedSNARK verified!");
-            console.log(e.data);
-
+            setisGenerating(false);
             setverify(e.data);
+            settime(e.data.time);
         };
         return () => {
             worker.current?.terminate();
@@ -21,6 +22,7 @@ export const useVerify = (pp: string, proof: string) => {
 
     const generateVerify = useCallback(async () => {
         console.log("Starting compressedSNARK verification...");
+        setisGenerating(true);
         worker.current?.postMessage({
             pp: pp,
             proof: proof,
@@ -28,5 +30,5 @@ export const useVerify = (pp: string, proof: string) => {
         });
     }, [pp, proof]);
 
-    return { verify, generateVerify };
+    return { verify, generateVerify, isGenerating, time };
 };
