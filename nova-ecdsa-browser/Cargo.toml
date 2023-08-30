@@ -1,0 +1,28 @@
+[package]
+name = "nova-ecdsa-browser"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+nova-scotia = { git = "https://github.com/dmpierre/Nova-Scotia.git", branch = "secp_secq" }
+ff = { version = "0.13", features = ["derive"]}
+nova-snark = { git = "https://github.com/dmpierre/Nova.git", default-features = false, branch = "dev-secpsecq-031738d" }
+serde = "1.0.185"
+serde_json = "1.0.105"
+num-bigint = { version = "0.4", features = ["serde", "rand"] }
+num-traits = "0.2.15"
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+getrandom = { version = "0.2", features = ["js"]}
+wasm-bindgen = { version = "0.2.81", features = ["serde-serialize"]}
+console_error_panic_hook = "0.1.7"
+rayon = "1.5"
+wasm-bindgen-rayon = { version = "1.0"}
+web-sys = { version = "0.3", features = ["Request", "Window", "Response"] }
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
+
+[lib]
+crate-type = ["cdylib", "rlib"]

@@ -34,3 +34,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+
+# Added by cargo
+target
+
+.vscode

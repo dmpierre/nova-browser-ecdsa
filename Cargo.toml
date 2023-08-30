@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "nova-ecdsa",
+    "nova-ecdsa-browser",
+]

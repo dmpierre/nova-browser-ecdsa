@@ -1,0 +1,2 @@
+- Environment variable should correctly point to your llvm installation
+- `.vscode` folder is used for environment setup. Might need to change paths provided for it to work properly
