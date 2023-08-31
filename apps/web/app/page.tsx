@@ -4,6 +4,7 @@ import { Header, NovaGenerateParams, NovaGenerateProof, NovaVerify } from "ui";
 import { useGenerateParams } from "../hooks/useGenerateParams";
 import { useProve } from "../hooks/useProve";
 import { useVerify } from "../hooks/useVerify";
+import "./globals.css";
 
 export default function Page() {
 
