@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { Button } from './Button';
+import { NovaContainer } from './Containers';
 
 const formatForDisplay = (data: string) => {
-    return data.slice(1, 50) + "... \"}\"";
+    return `${data.slice(1, 20)} [...] ${data.slice(data.length - 20, data.length - 1)}}`;
 };
 
 const formatTime = (time: number) => {
@@ -28,27 +30,27 @@ interface NovaVerifyProps extends NovaProps {
 
 export const NovaGenerateParams: React.FC<NovaGenerateParams> = ({ data, isGenerating, time, generateParams }) => {
     return (
-        <>
+        <NovaContainer>
             <p>Generate Public Parameters:</p>
             {
                 isGenerating ?
                     <p>Generating...</p>
                     :
                     data ?
-                        <>
-                            <p>Current public params: {formatForDisplay(`${data}`)}</p>
+                        <div className='flex flex-col space-y-1'>
+                            <p>{formatForDisplay(`${data}`)}</p>
                             <p>Generation time: {formatTime(time)}s</p>
-                        </>
+                        </div>
                         :
-                        <button onClick={generateParams}>Parametrize</button>
+                        <Button text="Parametrize" onClick={generateParams} />
             }
-        </>
+        </NovaContainer>
     )
 };
 
 export const NovaGenerateProof: React.FC<NovaGenerateProofProps> = ({ data, isGenerating, generateProof, time }) => {
     return (
-        <>
+        <NovaContainer>
             <p>Generate Proof:</p>
             {
                 isGenerating ?
@@ -56,19 +58,19 @@ export const NovaGenerateProof: React.FC<NovaGenerateProofProps> = ({ data, isGe
                     :
                     data ?
                         <>
-                            <p>Proof: {formatForDisplay(`${data}`)}</p>
+                            <p>{formatForDisplay(`${data}`)}</p>
                             <p>Generation time: {formatTime(time)}s</p>
                         </>
                         :
-                        <button onClick={generateProof}>Prove</button>
+                        <Button text="Prove" onClick={generateProof} />
             }
-        </>
+        </NovaContainer>
     )
 }
 
 export const NovaVerify: React.FC<NovaVerifyProps> = ({ data, isGenerating, generateVerify, time }) => {
     return (
-        <>
+        <NovaContainer>
             <p>Verify Proof:</p>
             {
                 isGenerating ?
@@ -80,9 +82,9 @@ export const NovaVerify: React.FC<NovaVerifyProps> = ({ data, isGenerating, gene
                             <p>Verification time: {formatTime(time)}s</p>
                         </>
                         :
-                        <button onClick={generateVerify}>Verify</button>
+                        <Button text="Verify" onClick={generateVerify} />
             }
-        </>
+        </ NovaContainer>
 
     )
 }

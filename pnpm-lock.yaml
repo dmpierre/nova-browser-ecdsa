@@ -90,9 +90,6 @@ importers:
       eslint-config-custom:
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
-      postcss:
-        specifier: ^8.4.29
-        version: 8.4.29
       tailwindcss:
         specifier: ^3.3.3
         version: 3.3.3
@@ -706,7 +703,7 @@ packages:
     dependencies:
       browserslist: 4.21.10
       caniuse-lite: 1.0.30001525
-      fraction.js: 4.3.2
+      fraction.js: 4.3.3
       normalize-range: 0.1.2
       picocolors: 1.0.0
       postcss: 8.4.29
@@ -1702,8 +1699,8 @@ packages:
       is-callable: 1.2.7
     dev: false
 
-  /fraction.js@4.3.2:
-    resolution: {integrity: sha512-9VLF466MqX1OUP7/d9r7/Vsvu6Hpp+taXBLmiR5x6mEYfT0BDkGVBt5TyA1aDu1WzIE1sF8F66evOFaz7iAEGQ==}
+  /fraction.js@4.3.3:
+    resolution: {integrity: sha512-tkkgxPcxJO0waFMe9i3zIES/tbhgOxXT/20ESNQkUvWASktF8Mxnt0vt147ZA+MNGme+w3mmPD0m61ySNmpTHw==}
     dev: true
 
   /fs-extra@10.1.0:
