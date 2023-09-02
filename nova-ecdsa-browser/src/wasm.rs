@@ -56,12 +56,10 @@ pub fn init_panic_hook() {
     console_error_panic_hook::set_once();
 }
 
-const WEBSITE_ROOT: &str = "http://localhost:3000/";
-
 #[wasm_bindgen]
-pub async fn generate_params() -> String {
+pub async fn generate_params(website_root: &str) -> String {
     let r1cs = load_r1cs(&FileLocation::URL(
-        WEBSITE_ROOT.to_string().clone() + &"agg_ecdsa.r1cs".to_string(),
+        website_root.to_string().clone() + &"agg_ecdsa.r1cs".to_string(),
     ))
     .await;
 
@@ -71,15 +69,15 @@ pub async fn generate_params() -> String {
 }
 
 #[wasm_bindgen]
-pub async fn generate_proof(pp_str: String, sigs: String) -> String {
+pub async fn generate_proof(website_root: &str, pp_str: String, sigs: String) -> String {
     console_error_panic_hook::set_once();
 
     let r1cs = load_r1cs(&FileLocation::URL(
-        WEBSITE_ROOT.to_string().clone() + &"agg_ecdsa.r1cs".to_string(),
+        website_root.to_string().clone() + &"agg_ecdsa.r1cs".to_string(),
     ))
     .await;
     let witness_generator_wasm =
-        FileLocation::URL(WEBSITE_ROOT.to_string().clone() + &"agg_ecdsa.wasm".to_string());
+        FileLocation::URL(website_root.to_string().clone() + &"agg_ecdsa.wasm".to_string());
 
     let sigs: EffSig = serde_json::from_str(&sigs).unwrap();
     let start_public_input = vec![

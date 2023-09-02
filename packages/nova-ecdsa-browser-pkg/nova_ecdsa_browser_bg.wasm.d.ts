@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export function __wbg_effsig_free(a: number): void;
-export function generate_params(): number;
-export function generate_proof(a: number, b: number, c: number, d: number): number;
+export function generate_params(a: number, b: number): number;
+export function generate_proof(a: number, b: number, c: number, d: number, e: number, f: number): number;
 export function verify_compressed_proof(a: number, b: number, c: number, d: number, e: number, f: number): number;
 export function init_panic_hook(): void;
 export function __wbg_wbg_rayon_poolbuilder_free(a: number): void;
