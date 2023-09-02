@@ -32,7 +32,12 @@ export default function Page() {
         total={foldingParams.total}
       />
       <MainNovaContainer>
-        <NovaGenerateParams data={pp.data} isGenerating={isGeneratingParams} time={paramsTime} generateParams={generateParams} />
+        {
+          foldingParams.type == "mobile" ?
+          <p>Currently desktop only!</p>
+          :
+          <NovaGenerateParams data={pp.data} isGenerating={isGeneratingParams} time={paramsTime} generateParams={generateParams} />
+        }
         {
           pp.data ?
             <NovaGenerateProof data={proof.data} isGenerating={isGeneratingProof} time={provingTime} generateProof={generateProof} />

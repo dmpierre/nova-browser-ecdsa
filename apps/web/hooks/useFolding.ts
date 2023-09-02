@@ -20,10 +20,10 @@ export const useFoldingParams = () => {
     const isMobile = width <= 768;
     const folding = isMobile ?
         {
-            filename: "agg_ecdsa_mobile",
-            iteration_count: 2,
-            per_iteration_count: 5,
-            total: 10,
+            filename: "",
+            iteration_count: 30,
+            per_iteration_count: 10,
+            total: 300,
             type: "mobile"
         } :
         {
