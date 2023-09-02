@@ -1,7 +1,8 @@
 import { useRef, useEffect, useCallback, useState } from "react";
 import sigsJSON from "../public/batch.json";
+import { FoldingParams } from "../types/types";
 
-export const useVerify = (pp: string, proof: string) => {
+export const useVerify = (foldingParams: FoldingParams, pp: string, proof: string) => {
     const worker = useRef<Worker>();
     const [verify, setverify] = useState<{ data: boolean | undefined }>({ data: undefined });
     const [time, settime] = useState();
@@ -25,8 +26,9 @@ export const useVerify = (pp: string, proof: string) => {
         setisGenerating(true);
         worker.current?.postMessage({
             pp: pp,
+            sigs: JSON.stringify(sigsJSON),
             proof: proof,
-            sigs: JSON.stringify(sigsJSON)
+            iteration_count: foldingParams.iteration_count,
         });
     }, [pp, proof]);
 

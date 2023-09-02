@@ -5,23 +5,28 @@
 export function init_panic_hook(): void;
 /**
 * @param {string} website_root
+* @param {string} file_name
 * @returns {Promise<string>}
 */
-export function generate_params(website_root: string): Promise<string>;
+export function generate_params(website_root: string, file_name: string): Promise<string>;
 /**
 * @param {string} website_root
+* @param {string} file_name
+* @param {number} iteration_count
+* @param {number} per_iteration_count
 * @param {string} pp_str
 * @param {string} sigs
 * @returns {Promise<string>}
 */
-export function generate_proof(website_root: string, pp_str: string, sigs: string): Promise<string>;
+export function generate_proof(website_root: string, file_name: string, iteration_count: number, per_iteration_count: number, pp_str: string, sigs: string): Promise<string>;
 /**
+* @param {number} iteration_count
 * @param {string} pp_str
 * @param {string} proof_str
 * @param {string} sigs
 * @returns {Promise<boolean>}
 */
-export function verify_compressed_proof(pp_str: string, proof_str: string, sigs: string): Promise<boolean>;
+export function verify_compressed_proof(iteration_count: number, pp_str: string, proof_str: string, sigs: string): Promise<boolean>;
 /**
 * @param {string} path
 * @returns {Promise<Uint8Array>}
@@ -68,9 +73,9 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 
 export interface InitOutput {
   readonly __wbg_effsig_free: (a: number) => void;
-  readonly generate_params: (a: number, b: number) => number;
-  readonly generate_proof: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
-  readonly verify_compressed_proof: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
+  readonly generate_params: (a: number, b: number, c: number, d: number) => number;
+  readonly generate_proof: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number) => number;
+  readonly verify_compressed_proof: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
   readonly init_panic_hook: () => void;
   readonly __wbg_wbg_rayon_poolbuilder_free: (a: number) => void;
   readonly wbg_rayon_poolbuilder_numThreads: (a: number) => number;

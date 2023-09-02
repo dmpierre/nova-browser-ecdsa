@@ -136,46 +136,55 @@ function passStringToWasm0(arg, malloc, realloc) {
 }
 /**
 * @param {string} website_root
+* @param {string} file_name
 * @returns {Promise<string>}
 */
-export function generate_params(website_root) {
+export function generate_params(website_root, file_name) {
     const ptr0 = passStringToWasm0(website_root, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.generate_params(ptr0, len0);
+    const ptr1 = passStringToWasm0(file_name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ret = wasm.generate_params(ptr0, len0, ptr1, len1);
     return takeObject(ret);
 }
 
 /**
 * @param {string} website_root
+* @param {string} file_name
+* @param {number} iteration_count
+* @param {number} per_iteration_count
 * @param {string} pp_str
 * @param {string} sigs
 * @returns {Promise<string>}
 */
-export function generate_proof(website_root, pp_str, sigs) {
+export function generate_proof(website_root, file_name, iteration_count, per_iteration_count, pp_str, sigs) {
     const ptr0 = passStringToWasm0(website_root, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ptr1 = passStringToWasm0(pp_str, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const ptr1 = passStringToWasm0(file_name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len1 = WASM_VECTOR_LEN;
-    const ptr2 = passStringToWasm0(sigs, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const ptr2 = passStringToWasm0(pp_str, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len2 = WASM_VECTOR_LEN;
-    const ret = wasm.generate_proof(ptr0, len0, ptr1, len1, ptr2, len2);
+    const ptr3 = passStringToWasm0(sigs, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len3 = WASM_VECTOR_LEN;
+    const ret = wasm.generate_proof(ptr0, len0, ptr1, len1, iteration_count, per_iteration_count, ptr2, len2, ptr3, len3);
     return takeObject(ret);
 }
 
 /**
+* @param {number} iteration_count
 * @param {string} pp_str
 * @param {string} proof_str
 * @param {string} sigs
 * @returns {Promise<boolean>}
 */
-export function verify_compressed_proof(pp_str, proof_str, sigs) {
+export function verify_compressed_proof(iteration_count, pp_str, proof_str, sigs) {
     const ptr0 = passStringToWasm0(pp_str, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
     const ptr1 = passStringToWasm0(proof_str, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len1 = WASM_VECTOR_LEN;
     const ptr2 = passStringToWasm0(sigs, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len2 = WASM_VECTOR_LEN;
-    const ret = wasm.verify_compressed_proof(ptr0, len0, ptr1, len1, ptr2, len2);
+    const ret = wasm.verify_compressed_proof(iteration_count, ptr0, len0, ptr1, len1, ptr2, len2);
     return takeObject(ret);
 }
 
@@ -513,12 +522,12 @@ function __wbg_get_imports() {
         const ret = startWorkers(takeObject(arg0), takeObject(arg1), wbg_rayon_PoolBuilder.__wrap(arg2));
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper3246 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 527, __wbg_adapter_22);
+    imports.wbg.__wbindgen_closure_wrapper3247 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 528, __wbg_adapter_22);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper3247 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 527, __wbg_adapter_22);
+    imports.wbg.__wbindgen_closure_wrapper3248 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 528, __wbg_adapter_22);
         return addHeapObject(ret);
     };
 

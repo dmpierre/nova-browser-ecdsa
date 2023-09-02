@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback, useState } from "react";
 
-export const useGenerateParams = () => {
+export const useGenerateParams = (filename: string) => {
     const [pp, setpp] = useState<any>({ data: "" });
     const [time, settime] = useState();
     const [isGenerating, setisGenerating] = useState(false);
@@ -23,7 +23,9 @@ export const useGenerateParams = () => {
     const generateParams = useCallback(async () => {
         console.log("Starting public params generation...");
         setisGenerating(true);
-        worker.current?.postMessage({});
+        worker.current?.postMessage({
+            filename: filename
+        });
     }, []);
 
     return { pp, generateParams, isGenerating, time };

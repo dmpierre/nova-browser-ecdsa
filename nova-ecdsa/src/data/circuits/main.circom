@@ -17,4 +17,4 @@ include "eff_ecdsa.circom";
 include "batch_efficient_ecdsa_pubkey.circom";
 
 // 10 is the batch size here. Change it to whatever you want.
-component main { public [ step_in ] } = BatchEfficientECDSAPubKey(10);
+component main { public [ step_in ] } = BatchEfficientECDSAPubKey(5);

@@ -57,9 +57,10 @@ pub fn init_panic_hook() {
 }
 
 #[wasm_bindgen]
-pub async fn generate_params(website_root: &str) -> String {
+pub async fn generate_params(website_root: &str, file_name: String) -> String {
+    let r1cs_file = format!("{}.r1cs", file_name);
     let r1cs = load_r1cs(&FileLocation::URL(
-        website_root.to_string().clone() + &"agg_ecdsa.r1cs".to_string(),
+        website_root.to_string().clone() + &r1cs_file.to_string(),
     ))
     .await;
 
@@ -69,15 +70,22 @@ pub async fn generate_params(website_root: &str) -> String {
 }
 
 #[wasm_bindgen]
-pub async fn generate_proof(website_root: &str, pp_str: String, sigs: String) -> String {
-    console_error_panic_hook::set_once();
-
+pub async fn generate_proof(
+    website_root: &str,
+    file_name: String,
+    iteration_count: usize,
+    per_iteration_count: usize,
+    pp_str: String,
+    sigs: String,
+) -> String {
+    let r1cs_file = format!("{}.r1cs", file_name);
+    let wasm_file = format!("{}.wasm", file_name);
     let r1cs = load_r1cs(&FileLocation::URL(
-        website_root.to_string().clone() + &"agg_ecdsa.r1cs".to_string(),
+        website_root.to_string().clone() + r1cs_file.as_str(),
     ))
     .await;
     let witness_generator_wasm =
-        FileLocation::URL(website_root.to_string().clone() + &"agg_ecdsa.wasm".to_string());
+        FileLocation::URL(website_root.to_string().clone() + wasm_file.as_str());
 
     let sigs: EffSig = serde_json::from_str(&sigs).unwrap();
     let start_public_input = vec![
@@ -91,9 +99,6 @@ pub async fn generate_proof(website_root: &str, pp_str: String, sigs: String) ->
     ];
 
     let mut private_inputs = Vec::new();
-
-    let iteration_count = 30;
-    let per_iteration_count = 10;
 
     for i in 0..iteration_count {
         let mut private_input = HashMap::new();
@@ -172,14 +177,13 @@ pub async fn generate_proof(website_root: &str, pp_str: String, sigs: String) ->
 }
 
 #[wasm_bindgen]
-pub async fn verify_compressed_proof(pp_str: String, proof_str: String, sigs: String) -> bool {
+pub async fn verify_compressed_proof(iteration_count: usize, pp_str: String, proof_str: String, sigs: String) -> bool {
     let pp =
         serde_json::from_str::<PublicParams<G1, G2, CircomCircuit<F1>, TrivialTestCircuit<F2>>>(
             &pp_str,
         )
         .unwrap();
     let (_pk, vk) = CompressedSNARK::<_, _, _, _, S1, S2>::setup(&pp).unwrap();
-    let iteration_count = 30;
     let sigs: EffSig = serde_json::from_str(&sigs).unwrap();
     let start_public_input = vec![
         F1::from_str_vartime(&sigs.start_pub_input[0]).unwrap(),

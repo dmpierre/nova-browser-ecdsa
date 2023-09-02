@@ -1,7 +1,8 @@
 import { useRef, useEffect, useCallback, useState } from "react";
 import sigsJSON from "../public/batch.json";
+import { FoldingParams } from "../types/types";
 
-export const useProve = (pp: string) => {
+export const useProve = (foldingParams: FoldingParams, pp: string) => {
     const [proof, setproof] = useState<any>({ data: "" });
     const worker = useRef<Worker>();
     const [time, settime] = useState(0);
@@ -24,7 +25,10 @@ export const useProve = (pp: string) => {
         setisGenerating(true);
         worker.current?.postMessage({
             pp: pp,
-            sigs: JSON.stringify(sigsJSON)
+            sigs: JSON.stringify(sigsJSON),
+            filename: foldingParams.filename,
+            iteration_count: foldingParams.iteration_count,
+            per_iteration_count: foldingParams.per_iteration_count
         });
     }, [pp]);
 

@@ -1,11 +1,15 @@
 import { ctx, WEBSITE_ROOT } from "./shared";
 
-async function generateProof(pp: string, sigs: string) {
+async function generateProof(filename: string, iteration_count: number, per_iteration_count: number, pp: string, sigs: string) {
     const multiThread = await import("nova-ecdsa-browser");
     await multiThread.default();
     await multiThread.initThreadPool(navigator.hardwareConcurrency);
     const start = performance.now();
-    const data = await multiThread.generate_proof(WEBSITE_ROOT, pp, sigs);
+    const data = await multiThread.generate_proof(
+        WEBSITE_ROOT, filename,
+        iteration_count, per_iteration_count,
+        pp, sigs
+    );
     const end = performance.now();
     ctx.postMessage({
         data: data,
@@ -14,5 +18,9 @@ async function generateProof(pp: string, sigs: string) {
 }
 
 ctx.addEventListener("message", async (event) => {
-    generateProof(event.data.pp, event.data.sigs);
+    generateProof(
+        event.data.filename,
+        event.data.iteration_count, event.data.per_iteration_count,
+        event.data.pp, event.data.sigs
+    );
 });

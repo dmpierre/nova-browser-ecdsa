@@ -60,7 +60,7 @@ export const NovaGenerateProof: React.FC<NovaGenerateProofProps> = ({ data, isGe
                         <>
                             <p>{formatForDisplay(`${data}`)}</p>
                             <p>Generation time: {formatTime(time)}s</p>
-                            <p className='text-xs italic'>(~ {(300 / (time/1000)).toFixed(2)} signatures/second)</p>
+                            <p className='text-xs italic'>(~ {(300 / (time/1000)).toFixed(2)} signatures/second, including compressed SPARTAN proof generation.)</p>
                         </>
                         :
                         <Button text="Prove" onClick={generateProof} />
