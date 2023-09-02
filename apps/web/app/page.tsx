@@ -1,6 +1,6 @@
 "use client";
 
-import { Header, NovaGenerateParams, NovaGenerateProof, NovaVerify, MainContainer, MainNovaContainer } from "ui";
+import { Header, NovaGenerateParams, NovaGenerateProof, Description, NovaVerify, MainContainer, MainNovaContainer } from "ui";
 import { useGenerateParams } from "../hooks/useGenerateParams";
 import { useProve } from "../hooks/useProve";
 import { useVerify } from "../hooks/useVerify";
@@ -15,15 +15,7 @@ export default function Page() {
   return (
     <MainContainer>
       <Header text="ECDSA Aggregation with Nova" />
-      <div className="text-center py-5 px-5">
-        <p>
-          This is an app aggregating 300 ECDSA signatures over secp/secq using Nova. You can test it to generate and subsquently verify a compressed Nova SNARK.
-          <br /> <br />
-          Read here on how to leverage Nova within your zk app.
-          And here on how we did this.
-        </p>
-
-      </div>
+      <Description />
       <MainNovaContainer>
         <NovaGenerateParams data={pp.data} isGenerating={isGeneratingParams} time={paramsTime} generateParams={generateParams} />
         {

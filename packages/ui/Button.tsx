@@ -8,5 +8,5 @@ interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({ text, onClick }) => {
-  return <button className="hover:bg-red-50 border-2 rounded-md px-2 py-1" onClick={onClick}>{text}</button>;
+  return <button className="hover:bg-violet-100 border-2 rounded-md px-2 py-1" onClick={onClick}>{text}</button>;
 };
