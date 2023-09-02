@@ -1,6 +1,6 @@
 "use client";
 
-import { Header, NovaGenerateParams, NovaGenerateProof, NovaVerify, MainContainer, MainNovaContainer } from "ui";
+import { Header, NovaGenerateParams, NovaGenerateProof, NovaVerify, MainContainer } from "ui";
 import { useGenerateParams } from "../hooks/useGenerateParams";
 import { useProve } from "../hooks/useProve";
 import { useVerify } from "../hooks/useVerify";
@@ -10,6 +10,7 @@ import "ui/styles.css";
 import dynamic from "next/dynamic";
 
 const Description = dynamic(() => import('ui/Description').then((mod) => mod.Description), { ssr: false })
+const MainNovaContainer = dynamic(() => import('ui/Containers').then((mod) => mod.MainNovaContainer), { ssr: false })
 
 export default function Page() {
 
@@ -26,29 +27,32 @@ export default function Page() {
           <Image src="/github-mark.png" width={25} height={25} alt="github" />
         </a>
       </div>
-      <Description iteration_count={foldingParams.iteration_count}
+      <Description
+        iteration_count={foldingParams.iteration_count}
         per_iteration_count={foldingParams.per_iteration_count}
         type={foldingParams.type}
         total={foldingParams.total}
       />
       <MainNovaContainer>
         {
-          foldingParams.type == "mobile" ?
-          <p>Currently desktop only!</p>
-          :
-          <NovaGenerateParams data={pp.data} isGenerating={isGeneratingParams} time={paramsTime} generateParams={generateParams} />
-        }
-        {
-          pp.data ?
-            <NovaGenerateProof data={proof.data} isGenerating={isGeneratingProof} time={provingTime} generateProof={generateProof} />
+          foldingParams.type === "mobile" ?
+            <p className="text-center">Currently desktop only!</p>
             :
-            <></>
-        }
-        {
-          proof.data ?
-            <NovaVerify data={verify.data} isGenerating={isGeneratingVerify} time={verifyTime} generateVerify={generateVerify} />
-            :
-            <></>
+            <>
+              <NovaGenerateParams data={pp.data} isGenerating={isGeneratingParams} time={paramsTime} generateParams={generateParams} />
+              {
+                pp.data ?
+                  <NovaGenerateProof data={proof.data} isGenerating={isGeneratingProof} time={provingTime} generateProof={generateProof} />
+                  :
+                  <></>
+              }
+              {
+                proof.data ?
+                  <NovaVerify data={verify.data} isGenerating={isGeneratingVerify} time={verifyTime} generateVerify={generateVerify} />
+                  :
+                  <></>
+              }
+            </>
         }
       </MainNovaContainer>
     </MainContainer>
