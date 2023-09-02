@@ -17,7 +17,7 @@ export const useFoldingParams = () => {
         }
     }, []);
 
-    const isMobile = width <= 768;
+    const isMobile = width <= 730;
     const folding = isMobile ?
         {
             filename: "agg_ecdsa",
