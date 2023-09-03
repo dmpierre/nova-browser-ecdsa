@@ -18,16 +18,16 @@ template BatchEfficientECDSAPubKey(N_SIGS) {
     sigsChecker[0].pubY <== step_in[6];
 
 
-    for (var i = 1; i < N_SIGS - 1; i++) {
+    for (var i = 1; i < N_SIGS; i++) {
 
         sigsChecker[i] = EfficientECDSAPubKey();
-        sigsChecker[i].s <== signatures[i][0];
-        sigsChecker[i].Tx <== signatures[i][1];
-        sigsChecker[i].Ty <== signatures[i][2];
-        sigsChecker[i].Ux <== signatures[i][3];
-        sigsChecker[i].Uy <== signatures[i][4];
-        sigsChecker[i].pubX <== signatures[i][5];
-        sigsChecker[i].pubY <== signatures[i][6];
+        sigsChecker[i].s <== signatures[i - 1][0];
+        sigsChecker[i].Tx <== signatures[i - 1][1];
+        sigsChecker[i].Ty <== signatures[i - 1][2];
+        sigsChecker[i].Ux <== signatures[i - 1][3];
+        sigsChecker[i].Uy <== signatures[i - 1][4];
+        sigsChecker[i].pubX <== signatures[i - 1][5];
+        sigsChecker[i].pubY <== signatures[i - 1][6];
 
     }
 
