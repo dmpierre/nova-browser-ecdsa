@@ -1,0 +1,17 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "Utility scripts for the project",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ethereumjs/util": "^8.0.5",
+    "@personaelabs/spartan-ecdsa": "^2.1.4",
+    "elliptic": "^6.5.4"
+  },
+  "devDependencies": {
+    "@types/elliptic": "^6.4.14",
+    "ts-node": "^10.9.1"
+  }
+}
